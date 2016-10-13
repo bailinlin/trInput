@@ -25,40 +25,9 @@
 
 (function($){
 
-    var trInput = function (element, options) {
-        this.init(element, options);
-    };
+    var trInput = function () {};
 
     trInput.prototype = {
-        Constructor : trInput,
-        init:function (element, options) {
-            var that = this;
-
-            that.$element =$('body').find('input[tr-valid],textarea[tr-valid]')
-            that.form = $('body').find('form')
-
-            var isValid = []
-
-            $.map(that.form,function (_form) {
-                var _element = $(_form).find('input[tr-valid],textarea[tr-valid]')
-                console.log('_form',$(_form))
-                $(_form).on('submit',function () {
-                    $.map(_element,function (ele){
-                        switch($(ele).attr('tr-valid')){
-                            case 'phone':
-                                trInput.prototype.eventChoose(ele,trInput.prototype.phoneRule,isValid)
-                                break
-                            case 'email':trInput.prototype.eventChoose(ele,trInput.prototype.emailRule)
-                                break
-                            case 'url':trInput.prototype.eventChoose(ele,trInput.prototype.urlRule)
-                                break;
-                        }
-                        })
-                    return false
-                })
-            })
-        },
-        
         phoneRule:function (item) {
             var reg = new RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/)
 
@@ -144,18 +113,12 @@
         },
         eventChoose:function (item,fun,isV) {
             fun(item)
-            // isV.push(fun(item))
             $(item).on('blur',function () {
                 fun(item)
-                // isV.push(fun(item))
-                setTimeout(function () {
-                    console.log('isValid .... 1',isV)
-                },500)
                 return
             })
         },
-
-       validatorFunction: function (val) {
+        validatorFunction: function (val) {
             return val.length > 0 &&
                 val.length <= 253 && // Including sub domains
                 !(/[^a-zA-Z0-9]/.test(val.slice(-2))) && !(/[^a-zA-Z0-9]/.test(val.substr(0, 1))) && !(/[^a-zA-Z0-9\.\-]/.test(val)) &&
@@ -163,24 +126,30 @@
                 val.split('.').length > 1;
         }
     };
-    $.fn.trInput = function(option, args) {
-        var $this = $(this),
-        //向元素取该数据
-            data = $this.data('trInput'),
-            options = $.extend({}, $.fn.trInput.defaults, $this.data(), typeof option == 'object' && option);
 
-        if (!data && (!option || typeof option == 'object')){
-            //向元素附加数据
-            $this.data('trInput', new trInput(this, options));
-        }
-        if (typeof option == 'string' && typeof data != 'undefined'){
-            data[option].call(data, args);
-        }
+    $.fn.trInput = function() {
+        var that = this;
+        that.form = $('body').find('form')
+
+        $.map(that.form,function (_form) {
+            var _element = $(_form).find('input[tr-valid],textarea[tr-valid]')
+            console.log('_form',$(_form))
+            $(_form).on('submit',function () {
+                $.map(_element,function (ele){
+                    switch($(ele).attr('tr-valid')){
+                        case 'phone':
+                            trInput.prototype.eventChoose(ele,trInput.prototype.phoneRule)
+                            break
+                        case 'email':trInput.prototype.eventChoose(ele,trInput.prototype.emailRule)
+                            break
+                        case 'url':trInput.prototype.eventChoose(ele,trInput.prototype.urlRule)
+                            break;
+                    }
+                })
+                return false
+            })
+        })
     };
-    $.fn.trInput.defaults = $.extend({}, {
-        form: 'form'
-    });
-    $.fn.trInput.Constructor = trInput;
 
 })(jQuery);
 
