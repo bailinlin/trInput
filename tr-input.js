@@ -2,21 +2,23 @@
  * Created by bailinlin on 16/9/22.
  *
  * 表单验证需要实现目标
- * 1. 参数可配置
+ *
+ * v1.0.0 实现目标
+ *
+ *  验证类型可配置
+ *      1. email
+ *      2. phone
+ *      3. url
+ *
+ * v2.0.0 实现目标
+ *
+ *  参数可配置
  *      1. require 是否必填
  *      2. minlength 最小长度
  *      3. maxlength 最大长度
  *      4. pattern 正则验证
  *      5. name 表单名称
  *      6. 对 input 和 radio ,checkbox 做个区别
- *      7. callback
- * 2. 验证类型可配置
- *      1. email
- *      2. phone
- *      3. url
- *
- *
- * 3. 浏览器兼容性
  *
  * 
  */
@@ -138,7 +140,7 @@
                         console.log('222')
                     }
                 }
-                return ; // todo: add support for IP-addresses
+                return ;
             }
 
             if($(item).nextAll().length){
