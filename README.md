@@ -34,3 +34,21 @@
                 </form>
 
 
+###  trInput 计划迭代版本
+
+ v1.0.0 实现目标
+ 
+   验证类型可配置
+       1. email
+       2. phone
+       3. url
+ 
+ v2.0.0 实现目标
+ 
+   参数可配置
+       1. require 是否必填
+       2. minlength 最小长度
+       3. maxlength 最大长度
+       4. pattern 正则验证
+       5. name 表单名称
+       6. 对 input 和 radio ,checkbox 做个区别
