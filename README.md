@@ -14,41 +14,40 @@
 ### html 示例
 
         <form action="" name="demoForm">
-                    <div>
-                        <span>email</span>
-                        <input type="text" placeholder="email" tr-valid="email">
-                    </div>
+            <div>
+                <span>email</span>
+                <input type="text" placeholder="email" tr-valid="email">
+            </div>
         
-                    <div>
-                        <span>请输入手机号</span>
-                        <input type="text" placeholder="phone" tr-valid="phone">
-                    </div>
-        
-        
-                    <div>
-                        <span>请输入url</span>
-                        <input type="text" placeholder="url" tr-valid="url">
-                    </div>
-        
-                    <button>提交</button>
-                </form>
+            <div>
+                <span>请输入手机号</span>
+                 <input type="text" placeholder="phone" tr-valid="phone">
+            </div>
+
+            <div>
+                <span>请输入url</span>
+                <input type="text" placeholder="url" tr-valid="url">
+            </div>
+
+            <button>提交</button>
+         </form>
 
 
-###  trInput 计划迭代版本
+##  trInput 计划迭代版本
 
  v1.0.0 实现目标
  
-   验证类型可配置
-       1. email
-       2. phone
-       3. url
+       验证类型可配置
+           1. email
+           2. phone
+           3. url
  
  v2.0.0 实现目标
  
-   参数可配置
-       1. require 是否必填
-       2. minlength 最小长度
-       3. maxlength 最大长度
-       4. pattern 正则验证
-       5. name 表单名称
-       6. 对 input 和 radio ,checkbox 做个区别
+       参数可配置
+           1. require 是否必填
+           2. minlength 最小长度
+           3. maxlength 最大长度
+           4. pattern 正则验证
+           5. name 表单名称
+           6. 对 input 和 radio ,checkbox 做个区别
