@@ -23,13 +23,6 @@
  * 
  */
 
-
-/*
-* TODO
-* 1. 触发验证条件,submit or blur or 其他
-* 2. 配置条件
-* 3. radio checkbox
-* */
 (function($){
 
     var trInput = function (element, options) {
