@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+
+
+        <form action="" name="textform11111" valid-event="submit">
+            <div>
+                <span>email</span>
+                <input type="text" placeholder="email" tr-valid="email">
+            </div>
+
+            <div>
+                <span>请输入手机号</span>
+                <input type="text" placeholder="phone" tr-valid="phone">
+            </div>
+
+
+            <div>
+                <span>请输入url</span>
+                <input type="text" placeholder="url" tr-valid="url">
+            </div>
+
+
+            <button onsubmit="alert('验证之后开始提交表单')">提交</button>
+
+        </form>
+
+        <form action="" name="textform222" valid-event="submit">
+
+            <div>
+                <span>请输入手机号</span>
+                <input type="text" placeholder="phone" tr-valid="phone">
+            </div>
+
+
+            <div>
+                <span>请输入url</span>
+                <input type="text" placeholder="url" tr-valid="url">
+            </div>
+
+
+            <button onsubmit="alert('验证之后开始提交表单')">提交</button>
+
+        </form>
+    </div>
+    <script src="../tr-input.js"></script>
+</body>
+</html>
