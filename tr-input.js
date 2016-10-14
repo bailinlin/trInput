@@ -137,13 +137,13 @@
     $.fn.trInput = function() {
         var that = this;
         var isValid = []
-        var returnV = true
 
         that.form = $('body').find('form')
 
         $.map(that.form,function (_form) {
+
             var _element = $(_form).find('input[tr-valid],textarea[tr-valid]')
-            console.log('_form',$(_form))
+
             $(_form).on('submit',function () {
                 $.map(_element,function (ele,index){
                     switch($(ele).attr('tr-valid')){
@@ -156,25 +156,22 @@
                             break;
                     }
                 })
+
                 var int = setInterval(function () {
                     for(var i=0;i<isValid.length;i++){
                         if(isValid[i]=='failed'){
-                            returnV=false
                             return false
                         }
                     }
 
                     if(isValid.length==_element.length){
                         clearInterval(int)
-                        returnV=true
                         return true
                     }
                 },100)
 
                 for(var i=0;i<isValid.length;i++){
-                    console.log('isValid',isValid)
                     if(isValid[i]=='failed'){
-                        returnV=false
                         return false
                     }
                 }
