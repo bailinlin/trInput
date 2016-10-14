@@ -85,7 +85,6 @@
         },
         urlRule:function (item) {
             var url = $(item).val()
-            console.log($(item).val())
             var urlFilter = /^(https?|ftp):\/\/((((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|\[|\]|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
             if (urlFilter.test(url)) {
                 var domain = url.split('://')[1],
@@ -93,13 +92,11 @@
 
                 if (domainSlashPos > -1) {
                     domain = domain.substr(0, domainSlashPos);
-                    console.log('111')
                 }
 
                 if(trInput.prototype.validatorFunction(domain)){
                     if($(item).nextAll().length){
                         $(item).parent().find('.text-danger').text('')
-                        console.log('222')
                     }
                     return true
 
@@ -140,7 +137,7 @@
     $.fn.trInput = function() {
         var that = this;
         var isValid = []
-        var returnV = false
+        var returnV = true
 
         that.form = $('body').find('form')
 
@@ -160,7 +157,6 @@
                     }
                 })
                 var int = setInterval(function () {
-                    console.log('hello',isValid.length,_element.length)
                     for(var i=0;i<isValid.length;i++){
                         if(isValid[i]=='failed'){
                             returnV=false
@@ -174,7 +170,14 @@
                         return true
                     }
                 },100)
-                return returnV
+
+                for(var i=0;i<isValid.length;i++){
+                    console.log('isValid',isValid)
+                    if(isValid[i]=='failed'){
+                        returnV=false
+                        return false
+                    }
+                }
             })
         })
     };
