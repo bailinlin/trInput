@@ -35,8 +35,8 @@
                 console.log('表单验证通过')
                 if($(item).nextAll().length){
                     $(item).parent().find('.text-danger').text('')
-                    return true
                 }
+                return true
             }else{
                 if($(item).nextAll().length){
                     $(item).parent().find('.text-danger').text('表单验证不通过')
@@ -101,8 +101,10 @@
                         $(item).parent().find('.text-danger').text('')
                         console.log('222')
                     }
+                    return true
+
                 }
-                return ;
+                return false;
             }
 
             if($(item).nextAll().length){
@@ -111,10 +113,18 @@
                 $(item).empty().after('<div class="text-danger">表单验证不通过</div>')
             }
         },
-        eventChoose:function (item,fun,isV) {
-            fun(item)
+        Validator:function (item,fun,isV,index) {
+            if(fun(item)){
+                isV[index] = 'pass'
+            }else{
+                isV[index] = 'failed'
+            }
             $(item).on('blur',function () {
-                fun(item)
+                if(fun(item)){
+                    isV[index] = 'pass'
+                }else{
+                    isV[index] = 'failed'
+                }
                 return
             })
         },
@@ -129,24 +139,42 @@
 
     $.fn.trInput = function() {
         var that = this;
+        var isValid = []
+        var returnV = false
+
         that.form = $('body').find('form')
 
         $.map(that.form,function (_form) {
             var _element = $(_form).find('input[tr-valid],textarea[tr-valid]')
             console.log('_form',$(_form))
             $(_form).on('submit',function () {
-                $.map(_element,function (ele){
+                $.map(_element,function (ele,index){
                     switch($(ele).attr('tr-valid')){
                         case 'phone':
-                            trInput.prototype.eventChoose(ele,trInput.prototype.phoneRule)
+                            trInput.prototype.Validator(ele,trInput.prototype.phoneRule,isValid,index)
                             break
-                        case 'email':trInput.prototype.eventChoose(ele,trInput.prototype.emailRule)
+                        case 'email':trInput.prototype.Validator(ele,trInput.prototype.emailRule,isValid,index)
                             break
-                        case 'url':trInput.prototype.eventChoose(ele,trInput.prototype.urlRule)
+                        case 'url':trInput.prototype.Validator(ele,trInput.prototype.urlRule,isValid,index)
                             break;
                     }
                 })
-                return false
+                var int = setInterval(function () {
+                    console.log('hello',isValid.length,_element.length)
+                    for(var i=0;i<isValid.length;i++){
+                        if(isValid[i]=='failed'){
+                            returnV=false
+                            return false
+                        }
+                    }
+
+                    if(isValid.length==_element.length){
+                        clearInterval(int)
+                        returnV=true
+                        return true
+                    }
+                },100)
+                return returnV
             })
         })
     };
